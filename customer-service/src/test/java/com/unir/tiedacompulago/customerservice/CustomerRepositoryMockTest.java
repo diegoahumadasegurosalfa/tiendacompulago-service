@@ -1,13 +1,11 @@
 package com.unir.tiedacompulago.customerservice;
 
-import com.unir.tiedacompulago.customerservice.entity.Customer;
-import com.unir.tiedacompulago.customerservice.repository.CustomerRepository;
+import com.unir.tiendacompulago.customerservice.entity.Customer;
+import com.unir.tiendacompulago.customerservice.repository.CustomerRepository;
 //import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import java.util.List;
 
 @DataJpaTest
 public class CustomerRepositoryMockTest {
