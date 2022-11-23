@@ -1,5 +1,9 @@
 package com.unir.tiendacompulago.shoppingservice.service;
 
+import com.unir.tiendacompulago.shoppingservice.client.CustomerClient;
+import com.unir.tiendacompulago.shoppingservice.client.ProductClient;
+import com.unir.tiendacompulago.shoppingservice.domain.Customer;
+import com.unir.tiendacompulago.shoppingservice.domain.Product;
 import com.unir.tiendacompulago.shoppingservice.entity.Invoice;
 import com.unir.tiendacompulago.shoppingservice.entity.InvoiceItem;
 import com.unir.tiendacompulago.shoppingservice.repository.InvoiceItemsRepository;
@@ -13,18 +17,19 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-public class InvoiceServiceImpl {
+public class InvoiceServiceImpl implements InvoiceService{
 
     @Autowired
     InvoiceRepository invoiceRepository;
 
     @Autowired
     InvoiceItemsRepository invoiceItemsRepository;
-    //@Autowired
-    //CustomerClient customerClient;
 
-    //@Autowired
-    //ProductClient productClient;
+    @Autowired
+    CustomerClient customerClient;
+
+    @Autowired
+    ProductClient productClient;
 
     @Override
     public List<Invoice> findInvoiceAll() {
@@ -32,7 +37,7 @@ public class InvoiceServiceImpl {
     }
 
 
-    //@Override
+    @Override
     public Invoice createInvoice(Invoice invoice) {
         Invoice invoiceDB = invoiceRepository.findByNumberInvoice ( invoice.getNumberInvoice () );
         if (invoiceDB !=null){
@@ -41,7 +46,7 @@ public class InvoiceServiceImpl {
         invoice.setState("CREATED");
         invoiceDB = invoiceRepository.save(invoice);
         invoiceDB.getItems().forEach( invoiceItem -> {
-            //productClient.updateStockProduct( invoiceItem.getProductId(), invoiceItem.getQuantity() * -1);
+            productClient.updateStockProduct( invoiceItem.getProductId(), invoiceItem.getQuantity() * -1);
         });
 
         return invoiceDB;
@@ -71,8 +76,8 @@ public class InvoiceServiceImpl {
         return invoiceRepository.save(invoiceDB);
     }
 
-    //  @Override
-    /*public Invoice getInvoice(Long id) {
+    @Override
+    public Invoice getInvoice(Long id) {
 
         Invoice invoice= invoiceRepository.findById(id).orElse(null);
         if (null != invoice ){
@@ -86,7 +91,7 @@ public class InvoiceServiceImpl {
             invoice.setItems(listItem);
         }
         return invoice ;
-    }*/
+    }
 
 }
 

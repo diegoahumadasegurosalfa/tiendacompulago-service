@@ -1,6 +1,7 @@
 package com.unir.tiendacompulago.shoppingservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.unir.tiendacompulago.shoppingservice.domain.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import io.micrometer.core.instrument.config.validate.Validated;
@@ -19,7 +20,6 @@ import java.util.List;
 @Entity
 @Table (name="tbl_invoices")
 @AllArgsConstructor
-//@NoArgsConstructor
 @Builder
 public class Invoice {
 
@@ -46,7 +46,8 @@ public class Invoice {
 
     private String state;
 
-    //private Customer customer;
+    @Transient
+    private Customer customer;
 
     public Invoice() {
         items =new ArrayList<>();

@@ -58,8 +58,5 @@ public class Product {
 	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 	private Category category;
 
-	
-	
-
 }
 

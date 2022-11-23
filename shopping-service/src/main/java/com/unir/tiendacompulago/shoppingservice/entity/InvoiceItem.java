@@ -1,6 +1,7 @@
 package com.unir.tiendacompulago.shoppingservice.entity;
 
 
+import com.unir.tiendacompulago.shoppingservice.domain.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +15,7 @@ import javax.persistence.*;
 @Entity
 @Contract
 @Data
-@Table (name="tbl_invoice_items")
+@Table (name="tbl_invoices_items")
 @AllArgsConstructor
 //@NoArgsConstructor
 @Builder
@@ -28,9 +29,14 @@ public class InvoiceItem {
     private Double quantity;
     private Double price;
 
+    @Column(name = "product_id")
+    private Long productId;
 
+    @Transient
     private Double subTotal;
-    //private Product product;
+
+    @Transient
+    private Product product;
 
     public Double getSubtotal() {
         if (this.price > 0 && this.quantity > 0) {

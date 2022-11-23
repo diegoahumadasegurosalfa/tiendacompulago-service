@@ -9,9 +9,11 @@ import com.unir.tiendacompulago.productservice.entity.Product;
 import org.springframework.stereotype.Repository;
 
 
-@Repository
+//@Repository
 public interface ProductRepository extends JpaRepository<Product, Long>{
 
 	public List<Product> findByCategory(Category category);
+
+	public Product findByIfAndModelo(Long id, String modelo);
 	
 }

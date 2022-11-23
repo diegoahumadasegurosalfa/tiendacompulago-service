@@ -1,55 +1,82 @@
 package com.unir.tiendacompulago.customerservice.service;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.unir.tiendacompulago.customerservice.entity.Customer;
+import com.unir.tiendacompulago.customerservice.entity.Region;
 import com.unir.tiendacompulago.customerservice.repository.CustomerRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public class CustomerServiceImpl implements CustomerService {
+@Slf4j // Logs
+@Service
+public class CustomerServiceImpl implements CustomerService{
 
     @Autowired
-    private CustomerRepository customerRepository;
-
+    CustomerRepository customerRepository;
 
     @Override
-    public List<Customer> listAllCustomer() {
+    public List<Customer> findCustomerAll() {
         return customerRepository.findAll();
     }
 
     @Override
-    public Customer getCustomer(Long id) {
-        return customerRepository.findById(id).orElse( null);
+    public List<Customer> findCustomerByRegion(Region region) {
+        return customerRepository.findByRegion(region);
     }
 
     @Override
     public Customer createCustomer(Customer customer) {
-        customer.setStatus("CREATED");
-        customer.setCreateAt(new Date());
-        return customerRepository.save(customer);
+        Customer customerDB = customerRepository.findByNumberId(customer.getNumberId());
+        if(customerDB != null){
+            return customerDB;
+        }
+        customer.setState("CREATED");
+        customerDB = customerRepository.save(customer);
+        return customerDB;
     }
 
     @Override
     public Customer updateCustomer(Customer customer) {
         Customer customerDB = getCustomer(customer.getId());
-        if (null == customerDB ){
+        if(customerDB == null){
             return null;
         }
-        customerDB.setName(customer.getName());
-        customerDB.setSurname(customer.getSurname());
+
+        customerDB.setFirstName(customer.getFirstName());
+        customerDB.setLastName(customer.getLastName());
+        customerDB.setEmail(customer.getEmail());
         customerDB.setPhone(customer.getPhone());
         customerDB.setDirection(customer.getDirection());
         return customerRepository.save(customerDB);
     }
 
     @Override
-    public Customer deleteCustomer(Long id) {
-        Customer customerDB = getCustomer(id);
-        if (null == customerDB ){
+    public Customer deleteCustomer(Customer customer) {
+        Customer customerDB = getCustomer(customer.getId());
+        if (customerDB == null){
             return null;
         }
-        customerDB.setStatus("DELETE");
-        return customerRepository.save(customerDB);
+        customer.setState("DELETED");
+        return customerRepository.save(customer);
+    }
+
+    @Override
+    public Customer getCustomer(Long id) {
+        return customerRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Customer findCustomerbyNumberId(String numberId) {
+        return customerRepository.findByNumberId(numberId);
     }
 }

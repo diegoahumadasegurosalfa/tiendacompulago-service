@@ -1,6 +1,6 @@
 package com.unir.tiendacompulago.shoppingservice.service;
 
-import com.unir.tiendacompulago.invoiceservice.entity.Invoice;
+import com.unir.tiendacompulago.shoppingservice.entity.Invoice;
 
 import java.util.List;
 
