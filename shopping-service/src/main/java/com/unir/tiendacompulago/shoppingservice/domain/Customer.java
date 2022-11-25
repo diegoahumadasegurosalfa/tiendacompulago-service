@@ -15,9 +15,12 @@ public class Customer {
 
     private String email;
 
-    private String photoUrl;
+    private String phone;
+
+    private String address;
 
     private Region region;
 
     private String state;
+
 }

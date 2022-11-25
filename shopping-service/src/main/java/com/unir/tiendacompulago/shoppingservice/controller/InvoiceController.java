@@ -37,12 +37,12 @@ public class InvoiceController {
     }
 
     // -------------------Retrieve Single Invoice------------------------------------------
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Invoice> getInvoice(@PathVariable("id") long id) {
-        log.info("Fetching Invoice with id {}", id);
-        Invoice invoice  = invoiceService.getInvoice(id);
+    @GetMapping(value = "/{numberInvoice}")
+    public ResponseEntity<Invoice> getInvoice(@PathVariable("numberInvoice") String numberInvoice) {
+        log.info("Fetching Invoice with numberInvoice {}", numberInvoice);
+        Invoice invoice  = invoiceService.getInvoice(numberInvoice);
         if (null == invoice) {
-            log.error("Invoice with id {} not found.", id);
+            log.error("Invoice with id {} not found.", numberInvoice);
             return  ResponseEntity.notFound().build();
         }
         return  ResponseEntity.ok(invoice);
@@ -77,12 +77,12 @@ public class InvoiceController {
 
     // ------------------- Delete a Invoice-----------------------------------------
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Invoice> deleteInvoice(@PathVariable("id") long id) {
-        log.info("Fetching & Deleting Invoice with id {}", id);
+    public ResponseEntity<Invoice> deleteInvoice(@PathVariable("id") String numberInvoice) {
+        log.info("Fetching & Deleting Invoice with id {}", numberInvoice);
 
-        Invoice invoice = invoiceService.getInvoice(id);
+        Invoice invoice = invoiceService.getInvoice(numberInvoice);
         if (invoice == null) {
-            log.error("Unable to delete. Invoice with id {} not found.", id);
+            log.error("Unable to delete. Invoice with id {} not found.", numberInvoice);
             return  ResponseEntity.notFound().build();
         }
         invoice = invoiceService.deleteInvoice(invoice);

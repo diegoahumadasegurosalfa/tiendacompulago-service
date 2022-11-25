@@ -1,6 +1,7 @@
 package com.unir.tiedacompulago.customerservice;
 
 import com.unir.tiendacompulago.customerservice.entity.Customer;
+import com.unir.tiendacompulago.customerservice.entity.Region;
 import com.unir.tiendacompulago.customerservice.repository.CustomerRepository;
 //import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,10 +15,12 @@ public class CustomerRepositoryMockTest {
     @Test
     public void whenFindByName_thenResturnListCustomer(){
         Customer customer01 = Customer.builder()
-                .name("Diego")
-                .surname("Torres")
+                .firstName("Diego")
+                .lastName("Torres")
                 .phone("3194740165")
-                .direction("Bogota").build();
+                .email("ingdahumada@gmail.com")
+                .region(new Region())
+                .address("Bogota").build();
 
         customerRepository.save(customer01);
 

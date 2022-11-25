@@ -39,22 +39,22 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public Invoice createInvoice(Invoice invoice) {
-        Invoice invoiceDB = invoiceRepository.findByNumberInvoice ( invoice.getNumberInvoice () );
+        Invoice invoiceDB = invoiceRepository.findByNumberInvoice (invoice.getNumberInvoice());
         if (invoiceDB !=null){
             return  invoiceDB;
         }
         invoice.setState("CREATED");
         invoiceDB = invoiceRepository.save(invoice);
         invoiceDB.getItems().forEach( invoiceItem -> {
-            productClient.updateStockProduct( invoiceItem.getProductId(), invoiceItem.getQuantity() * -1);
+            productClient.updateStockProduct(invoiceItem.getProductId(), invoiceItem.getQuantity() * -1);
         });
 
         return invoiceDB;
     }
 
-    //@Override
+    @Override
     public Invoice updateInvoice(Invoice invoice) {
-        Invoice invoiceDB = getInvoice(invoice.getId());
+        Invoice invoiceDB = getInvoice(invoice.getNumberInvoice());
         if (invoiceDB == null){
             return  null;
         }
@@ -68,7 +68,7 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     //@Override
     public Invoice deleteInvoice(Invoice invoice) {
-        Invoice invoiceDB = getInvoice(invoice.getId());
+        Invoice invoiceDB = getInvoice(invoice.getNumberInvoice());
         if (invoiceDB == null){
             return  null;
         }
@@ -77,9 +77,9 @@ public class InvoiceServiceImpl implements InvoiceService{
     }
 
     @Override
-    public Invoice getInvoice(Long id) {
+    public Invoice getInvoice(String numberInvoice) {
 
-        Invoice invoice= invoiceRepository.findById(id).orElse(null);
+        Invoice invoice= invoiceRepository.findByNumberInvoice(numberInvoice);
         if (null != invoice ){
             Customer customer = customerClient.getCustomer(invoice.getCustomerId()).getBody();
             invoice.setCustomer(customer);

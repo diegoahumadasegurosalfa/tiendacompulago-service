@@ -2,27 +2,17 @@ package com.unir.tiendacompulago.productservice.entity;
 
 import java.util.Date;
 
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import lombok.*;
-
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="tbl_products")
@@ -36,8 +26,10 @@ public class Product {
 	
 	@NotEmpty(message = "El modelo no debe ser vacío")
 	private String modelo;
+
 	@NotEmpty(message = "La marca no debe ser vacía")
 	private String marca;
+
 	private String procesador;
 	private String memoria;
 	private String hhdd;
@@ -48,6 +40,7 @@ public class Product {
 	private Double stock;
 	private Double precio;
 	private String status;
+
 	@Column(name="create_at")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createAt;

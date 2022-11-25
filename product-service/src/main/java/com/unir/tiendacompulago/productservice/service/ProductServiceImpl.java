@@ -3,6 +3,7 @@ package com.unir.tiendacompulago.productservice.service;
 import java.util.Date;
 import java.util.List;
 
+import com.unir.tiendacompulago.productservice.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,8 @@ import com.unir.tiendacompulago.productservice.repository.ProductRepository;
 public class ProductServiceImpl implements ProductService{
 
 	private final ProductRepository productRepository;
-	
+	private final CategoryRepository categoryRepository;
+
 	@Override
 	public List<Product> listAllProduct(){
 		return productRepository.findAll();
@@ -32,6 +34,10 @@ public class ProductServiceImpl implements ProductService{
 	public Product createProduct(Product product) {
 		product.setStatus("CREATED");
 		product.setCreateAt(new Date());
+		Category category = categoryRepository.findByname(product.getCategory().getName());
+		if(category == null){
+			categoryRepository.save(product.getCategory());
+		}
 		
 		return productRepository.save(product);
 	}
@@ -78,5 +84,18 @@ public class ProductServiceImpl implements ProductService{
 		Double stock = productDB.getStock() + quantity;
 		productDB.setStock(stock);
 		return productRepository.save(productDB);
+	}
+
+	@Override
+	public Category createCategory(Category category) {
+		return categoryRepository.save(category);
+	}
+
+	@Override
+	public List<Category> listAllCategory() { return categoryRepository.findAll(); }
+
+	@Override
+	public Category getCategory(Long id) {
+		return categoryRepository.findById(id).orElse(null);
 	}
 }

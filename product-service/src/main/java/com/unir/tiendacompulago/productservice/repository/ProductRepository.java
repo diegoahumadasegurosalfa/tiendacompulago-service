@@ -2,10 +2,10 @@ package com.unir.tiendacompulago.productservice.repository;
 
 import java.util.List;
 
+import com.unir.tiendacompulago.productservice.entity.Product;
 import com.unir.tiendacompulago.productservice.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.unir.tiendacompulago.productservice.entity.Product;
 import org.springframework.stereotype.Repository;
 
 
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepository extends JpaRepository<Product, Long>{
 
 	public List<Product> findByCategory(Category category);
+	public Product findByIdAndModelo(Long id, String modelo);
 
-	public Product findByIfAndModelo(Long id, String modelo);
-	
 }

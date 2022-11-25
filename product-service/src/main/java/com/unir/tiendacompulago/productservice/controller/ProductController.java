@@ -100,6 +100,26 @@ public class ProductController {
 	        }
 	        return ResponseEntity.ok(product);
 	    }
+
+	@GetMapping("/category")
+	public ResponseEntity<List<Category>> listCategory(@RequestParam(name= "categoryId",required=false)Long categoryId){
+		List<Category> categories = new ArrayList<>();
+		if (null==categoryId) {
+			categories = productService.listAllCategory();
+			if (categories.isEmpty()) {
+				return ResponseEntity.noContent().build();
+			}
+
+		}else {
+			categories.add(productService.getCategory(categoryId));
+			if (categories.isEmpty()) {
+				return ResponseEntity.notFound().build();
+			}
+		}
+
+		return ResponseEntity.ok(categories);
+
+	}
 	 
 	 
 	 private String formatMessage( BindingResult result){

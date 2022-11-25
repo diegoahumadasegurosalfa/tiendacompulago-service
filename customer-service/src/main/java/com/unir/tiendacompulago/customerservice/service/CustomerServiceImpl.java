@@ -1,6 +1,5 @@
 package com.unir.tiendacompulago.customerservice.service;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.unir.tiendacompulago.customerservice.entity.Customer;
 import com.unir.tiendacompulago.customerservice.entity.Region;
 import com.unir.tiendacompulago.customerservice.repository.CustomerRepository;
@@ -8,13 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Slf4j // Logs
@@ -30,8 +22,19 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    public Customer getCustomer(Long id) {
+        return customerRepository.findById(id).orElse(null);
+    }
+
+
+    @Override
     public List<Customer> findCustomerByRegion(Region region) {
         return customerRepository.findByRegion(region);
+    }
+
+    @Override
+    public Customer findCustomerbyNumberId(String numberId) {
+        return customerRepository.findByNumberId(numberId);
     }
 
     @Override
@@ -56,7 +59,8 @@ public class CustomerServiceImpl implements CustomerService{
         customerDB.setLastName(customer.getLastName());
         customerDB.setEmail(customer.getEmail());
         customerDB.setPhone(customer.getPhone());
-        customerDB.setDirection(customer.getDirection());
+        customerDB.setAddress(customer.getAddress());
+        customerDB.setRegion(customer.getRegion());
         return customerRepository.save(customerDB);
     }
 
@@ -68,15 +72,5 @@ public class CustomerServiceImpl implements CustomerService{
         }
         customer.setState("DELETED");
         return customerRepository.save(customer);
-    }
-
-    @Override
-    public Customer getCustomer(Long id) {
-        return customerRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public Customer findCustomerbyNumberId(String numberId) {
-        return customerRepository.findByNumberId(numberId);
     }
 }

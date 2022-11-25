@@ -2,23 +2,15 @@ package com.unir.tiendacompulago.shoppingservice.entity;
 
 
 import com.unir.tiendacompulago.shoppingservice.domain.Product;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.apache.http.annotation.Contract;
 
 import javax.validation.constraints.Positive;
 
 import javax.persistence.*;
 
 @Entity
-@Contract
 @Data
-@Table (name="tbl_invoices_items")
-@AllArgsConstructor
-//@NoArgsConstructor
-@Builder
+@Table (name="tbl_invoice_items")
 public class InvoiceItem {
 
     @Id
@@ -46,8 +38,8 @@ public class InvoiceItem {
         }
     }
     public InvoiceItem(){
-    this.quantity=(double) 0;
-    this.price=(double) 0;
-        }
+        this.quantity=(double) 0;
+        this.price=(double) 0;
+    }
 
 }

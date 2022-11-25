@@ -4,14 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.unir.tiendacompulago.shoppingservice.domain.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import io.micrometer.core.instrument.config.validate.Validated;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-//import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
-//import java.awt.*;
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +16,7 @@ import java.util.List;
 @Data
 @Entity
 @Table (name="tbl_invoices")
-@AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 @Builder
 public class Invoice {
 
@@ -37,8 +34,9 @@ public class Invoice {
 
     @Column (name="create_at")
     @Temporal(TemporalType.DATE)
-    private Date create_At;
-    //@Valid
+    private Date createAt;
+
+    @Valid
     @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name="invoice_id")
@@ -49,9 +47,6 @@ public class Invoice {
     @Transient
     private Customer customer;
 
-    public Invoice() {
-        items =new ArrayList<>();
-    }
     @PrePersist
-    public void prePersist(){this.create_At=new Date();}
+    public void prePersist(){ this.createAt=new Date(); }
 }
