@@ -5,8 +5,6 @@ import com.unir.tiendacompulago.shoppingservice.entity.Invoice;
 import java.util.List;
 
 public interface InvoiceService {
-
-
     public List<Invoice> findInvoiceAll();
 
     public Invoice createInvoice(Invoice invoice);

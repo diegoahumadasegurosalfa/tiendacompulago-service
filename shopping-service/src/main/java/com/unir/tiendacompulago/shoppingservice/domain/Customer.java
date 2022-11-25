@@ -22,5 +22,4 @@ public class Customer {
     private Region region;
 
     private String state;
-
 }

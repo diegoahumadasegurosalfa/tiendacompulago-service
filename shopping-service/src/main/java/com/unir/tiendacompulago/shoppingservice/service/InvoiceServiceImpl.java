@@ -2,10 +2,10 @@ package com.unir.tiendacompulago.shoppingservice.service;
 
 import com.unir.tiendacompulago.shoppingservice.client.CustomerClient;
 import com.unir.tiendacompulago.shoppingservice.client.ProductClient;
-import com.unir.tiendacompulago.shoppingservice.domain.Customer;
-import com.unir.tiendacompulago.shoppingservice.domain.Product;
 import com.unir.tiendacompulago.shoppingservice.entity.Invoice;
 import com.unir.tiendacompulago.shoppingservice.entity.InvoiceItem;
+import com.unir.tiendacompulago.shoppingservice.domain.Customer;
+import com.unir.tiendacompulago.shoppingservice.domain.Product;
 import com.unir.tiendacompulago.shoppingservice.repository.InvoiceItemsRepository;
 import com.unir.tiendacompulago.shoppingservice.repository.InvoiceRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class InvoiceServiceImpl implements InvoiceService{
-
     @Autowired
     InvoiceRepository invoiceRepository;
 
@@ -33,22 +32,20 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public List<Invoice> findInvoiceAll() {
-        return  invoiceRepository.findAll();
+        return invoiceRepository.findAll();
     }
 
-
     @Override
-    public Invoice createInvoice(Invoice invoice) {
-        Invoice invoiceDB = invoiceRepository.findByNumberInvoice (invoice.getNumberInvoice());
+        public Invoice createInvoice(Invoice invoice) {
+        Invoice invoiceDB = getInvoice(invoice.getNumberInvoice());
         if (invoiceDB !=null){
-            return  invoiceDB;
+            return invoiceDB;
         }
         invoice.setState("CREATED");
         invoiceDB = invoiceRepository.save(invoice);
-        invoiceDB.getItems().forEach( invoiceItem -> {
+        invoiceDB.getItems().forEach(invoiceItem -> {
             productClient.updateStockProduct(invoiceItem.getProductId(), invoiceItem.getQuantity() * -1);
         });
-
         return invoiceDB;
     }
 
@@ -56,7 +53,7 @@ public class InvoiceServiceImpl implements InvoiceService{
     public Invoice updateInvoice(Invoice invoice) {
         Invoice invoiceDB = getInvoice(invoice.getNumberInvoice());
         if (invoiceDB == null){
-            return  null;
+            return null;
         }
         invoiceDB.setCustomerId(invoice.getCustomerId());
         invoiceDB.setDescription(invoice.getDescription());
@@ -66,11 +63,11 @@ public class InvoiceServiceImpl implements InvoiceService{
         return invoiceRepository.save(invoiceDB);
     }
 
-    //@Override
+    @Override
     public Invoice deleteInvoice(Invoice invoice) {
         Invoice invoiceDB = getInvoice(invoice.getNumberInvoice());
-        if (invoiceDB == null){
-            return  null;
+        if (invoiceDB == null) {
+            return null;
         }
         invoiceDB.setState("DELETED");
         return invoiceRepository.save(invoiceDB);
@@ -78,20 +75,18 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     @Override
     public Invoice getInvoice(String numberInvoice) {
-
-        Invoice invoice= invoiceRepository.findByNumberInvoice(numberInvoice);
-        if (null != invoice ){
+        Invoice invoice = invoiceRepository.findByNumberInvoice(numberInvoice);
+        if(invoice != null){
             Customer customer = customerClient.getCustomer(invoice.getCustomerId()).getBody();
             invoice.setCustomer(customer);
-            List<InvoiceItem> listItem=invoice.getItems().stream().map(invoiceItem -> {
+            List<InvoiceItem> listItem = invoice.getItems().stream().map(invoiceItem -> {
                 Product product = productClient.getProduct(invoiceItem.getProductId()).getBody();
                 invoiceItem.setProduct(product);
                 return invoiceItem;
             }).collect(Collectors.toList());
+
             invoice.setItems(listItem);
         }
-        return invoice ;
+        return invoice;
     }
-
 }
-

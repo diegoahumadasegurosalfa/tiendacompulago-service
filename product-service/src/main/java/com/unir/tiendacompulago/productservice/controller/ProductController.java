@@ -64,7 +64,7 @@ public class ProductController {
 	
 	
 	@PostMapping
-	public ResponseEntity<Product> createProduct (@Valid @RequestBody Product product, BindingResult result){
+	public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product, BindingResult result){
 		if (result.hasErrors()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, this.formatMessage(result));
         }

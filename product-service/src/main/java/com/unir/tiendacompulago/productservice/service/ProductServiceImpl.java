@@ -48,15 +48,15 @@ public class ProductServiceImpl implements ProductService{
 		if (null == productDB) {
 			return null;
 		}
-		productDB.setModelo(product.getModelo());
-		productDB.setMarca(product.getMarca());
-		productDB.setProcesador(product.getProcesador());
-		productDB.setMemoria(product.getMemoria());
-		productDB.setHhdd(product.getHhdd());
+		productDB.setModel(product.getModel());
+		productDB.setMaker(product.getMaker());
+		productDB.setProcessor(product.getProcessor());
+		productDB.setMemory(product.getMemory());
+		productDB.setHdd(product.getHdd());
 		productDB.setSsd(product.getSsd());
-		productDB.setPantalla(product.getPantalla());
+		productDB.setScreen(product.getScreen());
 		productDB.setCategory(product.getCategory());
-		productDB.setPrecio(product.getPrecio());
+		productDB.setPrice(product.getPrice());
 		return productRepository.save(productDB);
 	}
 

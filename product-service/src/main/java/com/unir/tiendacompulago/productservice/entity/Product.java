@@ -25,20 +25,20 @@ public class Product {
 	private Long id;
 	
 	@NotEmpty(message = "El modelo no debe ser vacío")
-	private String modelo;
+	private String model;
 
 	@NotEmpty(message = "La marca no debe ser vacía")
-	private String marca;
+	private String maker;
 
-	private String procesador;
-	private String memoria;
-	private String hhdd;
+	private String processor;
+	private String memory;
+	private String hdd;
 	private String ssd;
-	private String pantalla;
+	private String screen;
 
 	@Positive(message = "El stock debe ser mayor que cero")
 	private Double stock;
-	private Double precio;
+	private Double price;
 	private String status;
 
 	@Column(name="create_at")

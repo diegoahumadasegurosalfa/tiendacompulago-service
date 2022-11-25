@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepository extends JpaRepository<Product, Long>{
 
 	public List<Product> findByCategory(Category category);
-	public Product findByIdAndModelo(Long id, String modelo);
+	public Product findByIdAndModel(Long id, String model);
 
 }
