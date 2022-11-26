@@ -1,0 +1,494 @@
+{
+	"info": {
+		"_postman_id": "2900f09a-8565-4a6a-8f30-7be3e91a844a",
+		"name": "TiendaCompuLagoUnir",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Customers",
+			"item": [
+				{
+					"name": "listAllCustomers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8092/customers",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8092/customers/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"customers",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createCustomer",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numberId\":\"40408083\",\r\n    \"firstName\": \"Luis\",\r\n    \"lastName\": \"rodriguez\",\r\n    \"email\": \"profesor@digitallab.academy\",\r\n    \"phone\": \"2222\",\r\n    \"address\": \"Calle 65 B No 14 22\",\r\n    \"region\": {\r\n    \"id\": 1,\r\n    \"name\": \"Medellin\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8092/customers",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCustomer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numberId\":\"40408083\",\r\n    \"firstName\": \"Luis Miguel\",\r\n    \"lastName\": \"rodriguez\",\r\n    \"email\": \"profesor@digitallab.academy\",\r\n    \"phone\": \"2222\",\r\n    \"address\": \"Calle 65 B No 14 22\",\r\n    \"region\": {\r\n    \"id\": 2,\r\n    \"name\": \"Bogota\"\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8092/customers/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"customers",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCustomers",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8092/customers/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"customers",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "listProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8091/products",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "products-categoryId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8091/products?categoryId=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8091/products/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"products",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createProduct",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"model\": \"Asus X515\",\r\n\t\"maker\": \"Asus\",\r\n\t\"processor\": \"Intel Core i3 1115G4 Processor 3.0 GHz\",\r\n\t\"memory\": \"8\",\r\n\t\"hdd\": \"0\",\r\n\t\"ssd\": \"512\",\r\n\t\"screen\": \"15,6\",\r\n\t\"stock\": 200,\r\n\t\"price\": 1599000,\r\n\t\"category\": {\r\n\t\t\"id\":1,\r\n        \"name\": \"portatiles\"\r\n\t}\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8091/products",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProduct",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"model\": \"Asus X515\",\r\n\t\"maker\": \"Asus\",\r\n\t\"processor\": \"Intel Core i3 1115G4 Processor 3.0 GHz\",\r\n\t\"memory\": \"8\",\r\n\t\"hdd\": \"0\",\r\n\t\"ssd\": \"512\",\r\n\t\"screen\": \"15,6\",\r\n\t\"stock\": 200,\r\n\t\"price\": 1599000,\r\n\t\"category\": {\r\n\t\t\"id\":1,\r\n        \"name\": \"portatiles\"\r\n\t}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8091/products/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"products",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProduct",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8091/products/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"products",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateStockProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8091/products/3/stock?quantity=10",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"products",
+								"3",
+								"stock"
+							],
+							"query": [
+								{
+									"key": "quantity",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listCategory",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8091/products/category",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"products",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8091/products/category?categoryId=1",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"products",
+								"category"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ConfigService",
+			"item": [
+				{
+					"name": "registry-service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "root:s3cr3t@localhost:8081/registry-service/default",
+							"auth": {
+								"user": "root",
+								"password": "s3cr3t"
+							},
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"registry-service",
+								"default"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customer-service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "root:s3cr3t@localhost:8081/customer-service/default",
+							"auth": {
+								"user": "root",
+								"password": "s3cr3t"
+							},
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"customer-service",
+								"default"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shopping",
+			"item": [
+				{
+					"name": "listAllInvoices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8093/invoices",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createInvoice",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numberInvoice\": \"002\",\r\n    \"description\": \"invoice store\",\r\n    \"customerId\": 2,\r\n    \"items\": [\r\n        {\r\n            \"quantity\": 1,\r\n            \"price\": 2800000.00,\r\n            \"productId\": 2\r\n        },\r\n\r\n        {\r\n            \"quantity\": 2,\r\n            \"price\": 1700000.00,\r\n            \"productId\": 5\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8093/invoices",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"invoices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-Invoice",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8093/invoices/001",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"invoices",
+								"001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateInvoice",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numberInvoice\": \"002\",\r\n    \"description\": \"invoice store\",\r\n    \"customerId\": 2,\r\n    \"items\": [\r\n        {\r\n            \"quantity\": 1,\r\n            \"priceItem\": 2800000.00,\r\n            \"productId\": 2\r\n        },\r\n\r\n        {\r\n            \"quantity\": 2,\r\n            \"priceItem\": 1500000.00,\r\n            \"productId\": 6\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8093/invoices/002",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"invoices",
+								"002"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
